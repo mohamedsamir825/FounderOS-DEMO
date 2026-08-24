@@ -30,6 +30,22 @@ This file exists so non-Claude agents (Codex, etc.) get the same house rules.
 - Commands: `npm run dev` (port 4100) · `npm test` · `npm run typecheck` ·
   `npm run seed` · `npm run brain:docs`.
 
+## Base44 dev environment
+
+- Run with `docker compose -f docker-compose.base44.yml up -d` (host port 3000 →
+  container dev server on 4100). The compose uses a plain `node:20-bookworm-slim`
+  runtime with the repo bind-mounted; `npm install` runs at container start and
+  `node_modules` lives in a named volume so the native `better-sqlite3` build is
+  never shadowed by a wrong-arch host copy.
+- No external credentials are required to boot: the app seeds a demo SQLite DB
+  on first touch (`data/founder-os.db`) and every connector honestly reports
+  "not configured" without keys. All keys in `.env.example` are optional.
+- Live reload is enabled (`next dev` + `WATCHPACK_POLLING=true` for the bind
+  mount). Next.js 14 does not gate dev assets by origin, so no
+  `allowedDevOrigins` config is needed.
+- Verify the preview: `curl -sf -H "Host: external-preview.example.com"
+  http://localhost:3000/` must return the app HTML.
+
 ## Multi-agent etiquette
 
 Multiple agent sessions (Claude, Codex) work this repo concurrently:

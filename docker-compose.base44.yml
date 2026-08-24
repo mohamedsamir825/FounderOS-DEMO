@@ -1,0 +1,31 @@
+# Base44 dev environment — runs Founder OS from cloned source with live reload.
+# No prebuilt app image: a plain Node runtime bind-mounts the repo and runs the
+# Next.js dev server so edits appear in the preview without rebuilding.
+services:
+  web:
+    image: node:20-bookworm-slim
+    working_dir: /app
+    ports:
+      - "3000:4100"
+    environment:
+      # Let Next.js watch files reliably through the bind mount.
+      - WATCHPACK_POLLING=true
+      # Pass the (recreated-per-env) public host suffix in case the app needs it.
+      - BASE44_PUBLIC_HOST_SUFFIX=${BASE44_PUBLIC_HOST_SUFFIX:-}
+      # SQLite lives inside the bind-mounted repo so seeded data persists.
+      - FOUNDER_OS_DB=/app/data/founder-os.db
+    volumes:
+      - ./:/app
+      # Keep node_modules inside the container (native better-sqlite3 build),
+      # never shadowed by a stale/wrong-arch host copy.
+      - web_node_modules:/app/node_modules
+    command: sh -c "npm install && npx next dev -p 4100 -H 0.0.0.0"
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:4100/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+
+volumes:
+  web_node_modules:
