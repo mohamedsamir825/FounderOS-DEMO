@@ -1,19 +1,20 @@
 /**
- * UI themes. Mono (Monolith Signal — white on black, color = status only) is
- * the default identity; the others are full re-skins the user can pick. The
- * active theme lives as `data-theme` on <html>, persisted to localStorage.
- * Tailwind os.* tokens read CSS vars, so flipping the attribute re-themes the
- * whole UI with no per-component work — each theme is a token block in
- * app/globals.css.
+ * UI themes. Nexus (obsidian command center — cyber gold + terminal blue,
+ * glassmorphism, glowing borders) is the default identity; the rest are
+ * alternate skins. The active theme lives as `data-theme` on <html>,
+ * persisted to localStorage. Tailwind os.* tokens read CSS vars, so flipping
+ * the attribute re-themes the whole UI with no per-component work — each
+ * theme is a token block in app/globals.css.
  */
-export const THEMES = ['mono', 'mono-light', 'dark', 'light', 'midnight', 'ember'] as const;
+export const THEMES = ['nexus', 'mono', 'mono-light', 'dark', 'light', 'midnight', 'ember'] as const;
 export type Theme = (typeof THEMES)[number];
 
 /** What every fresh load gets until the user picks something else. */
-export const DEFAULT_THEME: Theme = 'mono';
+export const DEFAULT_THEME: Theme = 'nexus';
 
 /** Picker metadata: display name, one-line feel, [bg, accent, text] swatch. */
 export const THEME_META: Record<Theme, { name: string; blurb: string; swatch: [string, string, string] }> = {
+  nexus: { name: 'Nexus', blurb: 'obsidian command center, cyber gold + terminal blue', swatch: ['#0b0e14', '#d4af37', '#e6edf3'] },
   dark: { name: 'Terminal', blurb: 'phosphor green on near-black', swatch: ['#050807', '#3df08c', '#e4efe6'] },
   light: { name: 'Clay', blurb: 'warm paper with clay orange', swatch: ['#ece3d2', '#c96442', '#2b2722'] },
   midnight: { name: 'Midnight', blurb: 'deep navy, signal blue', swatch: ['#070d1f', '#5ec9f8', '#e8ecf9'] },

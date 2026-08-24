@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PanelLeft } from 'lucide-react';
-import { OsMark } from '@/components/OsMark';
+import { NexusMark } from '@/components/NexusMark';
 import { usePathname } from 'next/navigation';
 import { NAV_OPERATE, NAV_AGENTS, NAV_INTELLIGENCE, NAV_SYSTEM, NAV_LIBRARY, type NavItem } from '@/lib/nav';
 
@@ -168,14 +168,14 @@ export function Sidebar() {
             mark carries it and the toggle stacks underneath (34px plus a 28px
             button will not sit side by side in a 56px rail). */}
         {collapsed ? (
-          <OsMark size={30} className="shrink-0" />
+          <NexusMark size={30} className="shrink-0" />
         ) : (
           <div className="flex items-center gap-[11px]">
-            <OsMark size={34} className="shrink-0" />
+            <NexusMark size={34} className="shrink-0" />
             <div>
-              <div className="text-[13px] font-bold tracking-[0.14em]">FOUNDER OS</div>
+              <div className="text-[13px] font-bold tracking-[0.14em]">NEXUS</div>
               <div className="mt-[3px] whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.16em] text-os-dim">
-                v3 · Operator Mode
+                Command Center
               </div>
             </div>
           </div>
@@ -192,11 +192,11 @@ export function Sidebar() {
         </button>
       </div>
       <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-2.5 pb-2">
-        <NavGroup title="Operate" items={NAV_OPERATE} pathname={pathname} collapsed={collapsed} onTip={setTip} />
-        <NavGroup title="Agents" items={NAV_AGENTS} pathname={pathname} collapsed={collapsed} onTip={setTip} />
+        <NavGroup title="Command" items={NAV_OPERATE} pathname={pathname} collapsed={collapsed} onTip={setTip} />
+        <NavGroup title="Workforce" items={NAV_AGENTS} pathname={pathname} collapsed={collapsed} onTip={setTip} />
         <NavGroup title="Intelligence" items={NAV_INTELLIGENCE} pathname={pathname} collapsed={collapsed} onTip={setTip} />
         <NavGroup title="System" items={NAV_SYSTEM} pathname={pathname} collapsed={collapsed} onTip={setTip} />
-        <NavGroup title="Variants" items={NAV_LIBRARY} pathname={pathname} collapsed={collapsed} onTip={setTip} />
+        <NavGroup title="Library" items={NAV_LIBRARY} pathname={pathname} collapsed={collapsed} onTip={setTip} />
       </nav>
       <div
         className={`flex flex-col gap-2 border-t border-os-border py-3.5 ${

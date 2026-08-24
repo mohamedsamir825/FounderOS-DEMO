@@ -18,8 +18,8 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'FOUNDER OS',
-  description: 'Personal operating system and AI agent command center for a single person company',
+  title: 'NEXUS',
+  description: 'NEXUS — personal intelligence & execution system. A command center of specialized AI companies around one operator.',
 };
 
 const NAV_COMMANDS: Command[] = [
